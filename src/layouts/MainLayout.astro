@@ -1,0 +1,285 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - Au Soleil</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">
+          <a href="/">
+            <h1>Au Soleil</h1>
+          </a>
+        </div>
+        <div class="nav-links">
+          <a href="/">Startseite</a>
+          <a href="/wohnungen">Wohnungen</a>
+          <a href="/projekt">Projekt</a>
+          <a href="/kontakt">Kontakt</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="company-info">
+          <h3>BK Immobilien AG</h3>
+          <p>Keltenstrasse 5</p>
+          <p>2563 Ipsach</p>
+          <p><a href="tel:+41323313242">+41 32 331 32 42</a></p>
+          <p>
+            <a href="mailto:b.kradolfer@bkimmobilien.ch"
+              >b.kradolfer@bkimmobilien.ch</a
+            >
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="/kontakt">Kontakt</a>
+          <a href="/datenschutz">Datenschutz</a>
+          <a href="/impressum">Impressum</a>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Au Soleil. Alle Rechte vorbehalten.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  /* Luxury Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --gold: #c9a654;
+    --gold-light: #d4b76b;
+    --gold-dark: #ab8c38;
+    --charcoal: #2c2c2c;
+    --off-white: #f8f8f8;
+    --light-gray: #e9e9e9;
+    --text-dark: #2c2c2c;
+    --text-light: #6e6e6e;
+  }
+
+  body {
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--off-white);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  /* Header and Navigation */
+  header {
+    padding: 1.5rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo h1 {
+    font-size: 2rem;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .logo a {
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s;
+  }
+
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--gold);
+  }
+
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+
+  /* Main Content */
+  main {
+    min-height: 70vh;
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--charcoal);
+    color: white;
+    padding: 4rem 2rem;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3rem;
+  }
+
+  .company-info h3 {
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+    font-size: 1.5rem;
+  }
+
+  .company-info p {
+    margin-bottom: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .company-info a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .company-info a:hover {
+    color: var(--gold-light);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    transition: color 0.3s;
+    position: relative;
+    padding-bottom: 0.3rem;
+  }
+
+  .footer-links a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--gold-light);
+  }
+
+  .footer-links a:hover::after {
+    width: 100%;
+  }
+
+  .copyright {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 3rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-weight: 300;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      gap: 1.2rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .footer-content {
+      flex-direction: column;
+    }
+  }
+</style>

@@ -1,0 +1,814 @@
+---
+interface Apartment {
+  id: string;
+  title: string;
+  price: string;
+  size?: number;
+  rooms?: number;
+  floor?: string;
+  address?: string;
+  status: string;
+  building?: string;
+  svgId?: string;
+}
+
+interface Props {
+  apartments: Apartment[];
+  buildingTitle?: string;
+  buildingAddress?: string;
+}
+
+const {
+  apartments,
+  buildingTitle = "Wohnüberbauung",
+  buildingAddress = "Bielstrasse 50/50a, Lengnau",
+} = Astro.props;
+
+// Group apartments by building
+const building50Apartments = apartments.filter(
+  (apt) => apt.building === "50" || apt.address?.includes("50,"),
+);
+const building50aApartments = apartments.filter(
+  (apt) => apt.building === "50a" || apt.address?.includes("50a,"),
+);
+---
+
+<div class="property-listing">
+  <div class="property-info-column">
+    <div class="building-header">
+      <h2 class="building-title">{buildingTitle}</h2>
+      <p class="building-address">{buildingAddress}</p>
+      <div class="building-tabs">
+        <button class="building-tab active" data-building="all"
+          >Alle Wohnungen</button
+        >
+        <button class="building-tab" data-building="50">Bielstrasse 50</button>
+        <button class="building-tab" data-building="50a">Bielstrasse 50a</button
+        >
+      </div>
+    </div>
+
+    <div class="apartments-list">
+      {
+        apartments.map((apt) => (
+          <div
+            class="apartment-box"
+            data-apartment-id={apt.id}
+            data-building={
+              apt.building || (apt.address?.includes("50a,") ? "50a" : "50")
+            }
+          >
+            <div class="apartment-header">
+              <h3 class="apartment-title">{apt.title}</h3>
+              <div class="apartment-status" data-status={apt.status}>
+                {apt.status}
+              </div>
+            </div>
+
+            <div class="apartment-details-row">
+              <p class="apartment-price">{apt.price}</p>
+
+              {(apt.size || apt.rooms || apt.floor) && (
+                <div class="apartment-specs">
+                  {apt.size && (
+                    <div class="spec">
+                      <svg
+                        class="spec-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M4 21V8L12 4L20 8V21M4 21H20M4 21H2M20 21H22M8 10H16M8 14H16M8 18H16"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span class="value">{apt.size}</span>
+                      <span class="unit">
+                        m<sup>2</sup>
+                      </span>
+                    </div>
+                  )}
+
+                  {apt.rooms && (
+                    <div class="spec">
+                      <svg
+                        class="spec-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M3 21V12.7M3 12.7L12 5.7L21 12.7M3 12.7V8.7L12 1.7L21 8.7V12.7M21 21V12.7M6 21V15.7C6 15.7 6 14.7 7 14.7H17C18 14.7 18 15.7 18 15.7V21"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span class="value">{apt.rooms}</span>
+                      <span class="unit">Zimmer</span>
+                    </div>
+                  )}
+
+                  {apt.floor && (
+                    <div class="spec">
+                      <svg
+                        class="spec-icon"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M3 5V19M21 5V19M21 19H3M21 5H3M6 9H8M6 13H8M6 17H8M16 9H18M16 13H18M16 17H18M11 9H13M11 13H13M11 17H13"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <span class="value">{apt.floor}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div class="apartment-address-row">
+              {apt.address && <p class="apartment-address">{apt.address}</p>}
+
+              <a
+                href={`/wohnungen/${apt.title.toLowerCase().replace(/\s+/g, "-")}`}
+                class="view-details"
+              >
+                Details ansehen
+                <svg
+                  class="arrow-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 5L21 12M21 12L14 19M21 12H3"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="building-svg-column">
+    <div class="building-svg-container">
+      <object
+        data="/images/house.svg"
+        type="image/svg+xml"
+        class="building-svg"
+        id="buildingSvg"
+        aria-label="Building floor plan"></object>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ apartments }}>
+  // Script for apartment hover effects and building filtering
+  document.addEventListener("DOMContentLoaded", () => {
+    // Select all apartment info boxes and building tabs
+    const apartmentBoxes = document.querySelectorAll(".apartment-box");
+    const buildingTabs = document.querySelectorAll(".building-tab");
+    let activeBuilding = "all";
+
+    // Set up building tab functionality
+    buildingTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        // Remove active class from all tabs
+        buildingTabs.forEach((t) => t.classList.remove("active"));
+
+        // Add active class to clicked tab
+        tab.classList.add("active");
+
+        // Get building to filter by
+        activeBuilding = tab.getAttribute("data-building");
+
+        // Show/hide apartment boxes based on building
+        apartmentBoxes.forEach((box) => {
+          const building = box.getAttribute("data-building");
+
+          if (activeBuilding === "all" || building === activeBuilding) {
+            box.style.display = "";
+          } else {
+            box.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Wait for the SVG to load and then set up the interactions
+    const svgImage = document.getElementById("buildingSvg");
+
+    svgImage.addEventListener("load", () => {
+      // Get the SVG document
+      const svgDoc = svgImage.contentDocument;
+      if (!svgDoc) {
+        console.error("Could not access SVG document");
+        return;
+      }
+
+      // Select all g elements within the SVG
+      const svgGroups = Array.from(svgDoc.querySelectorAll("g[id]"));
+
+      console.log("SVG Groups found:", svgGroups.length);
+
+      if (svgGroups.length === 0) {
+        console.warn("No SVG groups found with IDs");
+      }
+
+      // Map apartment IDs to SVG group IDs using the improved approach
+      const apartmentMap = {};
+
+      // First try to map using the svgId property
+      apartments.forEach((apt) => {
+        if (apt.svgId) {
+          // Try to find an SVG group with this ID
+          const svgGroup = svgDoc.getElementById(apt.svgId);
+
+          if (svgGroup) {
+            apartmentMap[apt.id] = apt.svgId;
+            console.log(
+              `Mapped apartment ${apt.id} to SVG group ${apt.svgId} (by svgId)`,
+            );
+          }
+        }
+      });
+
+      // If svgId didn't work, try the building+number approach
+      apartments.forEach((apt) => {
+        if (!apartmentMap[apt.id]) {
+          const aptBuilding =
+            apt.building || (apt.address?.includes("50a") ? "50a" : "50");
+          const aptNumber = apt.id.replace(/\D/g, "");
+
+          // Try different ID formats
+          const potentialIds = [
+            `apt-${aptBuilding}-${aptNumber}`,
+            `apartment-${aptBuilding}-${aptNumber}`,
+            `wohnung-${aptBuilding}-${aptNumber}`,
+            `apt${aptNumber}`,
+            `apartment${aptNumber}`,
+            `wohnung${aptNumber}`,
+          ];
+
+          // Try to find an SVG group with any of these IDs
+          for (const potentialId of potentialIds) {
+            const svgGroup = svgDoc.getElementById(potentialId);
+
+            if (svgGroup) {
+              apartmentMap[apt.id] = potentialId;
+              console.log(
+                `Mapped apartment ${apt.id} to SVG group ${potentialId} (by building+number)`,
+              );
+              break;
+            }
+          }
+        }
+      });
+
+      // If still not all apartments mapped, try matching by building and sequential index
+      const building50Apts = apartments.filter(
+        (apt) => apt.building === "50" || apt.address?.includes("50,"),
+      );
+
+      const building50aSvgGroups = svgGroups.filter(
+        (g) => g.id.includes("50a") || g.id.includes("right"),
+      );
+
+      const building50SvgGroups = svgGroups.filter(
+        (g) =>
+          (g.id.includes("50") && !g.id.includes("50a")) ||
+          g.id.includes("left"),
+      );
+
+      // Map building 50 apartments that don't have a mapping yet
+      building50Apts.forEach((apt, index) => {
+        if (!apartmentMap[apt.id] && index < building50SvgGroups.length) {
+          apartmentMap[apt.id] = building50SvgGroups[index].id;
+          console.log(
+            `Mapped apartment ${apt.id} to SVG group ${building50SvgGroups[index].id} (by building position)`,
+          );
+        }
+      });
+
+      // Map building 50a apartments that don't have a mapping yet
+      const building50aApts = apartments.filter(
+        (apt) => apt.building === "50a" || apt.address?.includes("50a,"),
+      );
+
+      building50aApts.forEach((apt, index) => {
+        if (!apartmentMap[apt.id] && index < building50aSvgGroups.length) {
+          apartmentMap[apt.id] = building50aSvgGroups[index].id;
+          console.log(
+            `Mapped apartment ${apt.id} to SVG group ${building50aSvgGroups[index].id} (by building position)`,
+          );
+        }
+      });
+
+      // Last resort: match any remaining apartments sequentially
+      apartments.forEach((apt, index) => {
+        if (!apartmentMap[apt.id] && index < svgGroups.length) {
+          apartmentMap[apt.id] = svgGroups[index].id;
+          console.log(
+            `Mapped apartment ${apt.id} to SVG group ${svgGroups[index].id} (sequential fallback)`,
+          );
+        }
+      });
+
+      // Ensure all apartment boxes have proper hover effects
+      apartmentBoxes.forEach((box) => {
+        box.addEventListener("mouseenter", () => {
+          const apartmentId = box.getAttribute("data-apartment-id");
+          const svgGroupId = apartmentMap[apartmentId];
+
+          console.log(
+            `Mouse enter on ${apartmentId}, looking for SVG group ${svgGroupId}`,
+          );
+
+          if (svgGroupId) {
+            const svgGroup = svgDoc.getElementById(svgGroupId);
+            if (svgGroup) {
+              // First, store the original fill values to restore them later
+              svgGroup.dataset.originalFill =
+                svgGroup.getAttribute("fill") || "";
+
+              // Get all polygons inside the group
+              const polygons = svgGroup.querySelectorAll("polygon");
+
+              // Store original styles and apply gold fill to each polygon
+              polygons.forEach((polygon) => {
+                // Store original style to restore later
+                polygon.dataset.originalStyle =
+                  polygon.getAttribute("style") || "";
+
+                // Override the style attribute with gold fill - keeping other properties
+                const currentStyle = polygon.getAttribute("style") || "";
+                const newStyle =
+                  currentStyle.replace(/fill:[^;]+;/, "") +
+                  "fill: #c9a654 !important;";
+                polygon.setAttribute("style", newStyle);
+              });
+
+              console.log(
+                `Applied gold fill to SVG group ${svgGroupId} (${polygons.length} polygons)`,
+              );
+            } else {
+              console.warn(`SVG group with ID ${svgGroupId} not found`);
+            }
+          } else {
+            console.warn(`No mapping found for apartment ${apartmentId}`);
+          }
+
+          // Add active class to the hovered box
+          box.classList.add("active");
+        });
+
+        box.addEventListener("mouseleave", () => {
+          const apartmentId = box.getAttribute("data-apartment-id");
+          const svgGroupId = apartmentMap[apartmentId];
+
+          if (svgGroupId) {
+            const svgGroup = svgDoc.getElementById(svgGroupId);
+            if (svgGroup) {
+              // Restore original fills to all polygons
+              const polygons = svgGroup.querySelectorAll("polygon");
+              polygons.forEach((polygon) => {
+                // Restore the original style
+                if (polygon.dataset.originalStyle) {
+                  polygon.setAttribute("style", polygon.dataset.originalStyle);
+                  delete polygon.dataset.originalStyle;
+                }
+              });
+
+              // Restore original group fill if it was set
+              if (svgGroup.dataset.originalFill) {
+                svgGroup.setAttribute("fill", svgGroup.dataset.originalFill);
+                delete svgGroup.dataset.originalFill;
+              }
+            }
+          }
+
+          // Remove active class
+          box.classList.remove("active");
+        });
+      });
+
+      // Add hover effects to SVG groups
+      svgGroups.forEach((svgGroup) => {
+        svgGroup.style.cursor = "pointer";
+        svgGroup.style.transition = "all 0.3s ease";
+
+        svgGroup.addEventListener("mouseenter", () => {
+          const groupId = svgGroup.id;
+          let apartmentId = null;
+
+          // Find the corresponding apartment ID
+          for (const [aptId, svgId] of Object.entries(apartmentMap)) {
+            if (svgId === groupId) {
+              apartmentId = aptId;
+              break;
+            }
+          }
+
+          if (apartmentId) {
+            // Find and highlight the corresponding apartment box
+            apartmentBoxes.forEach((box) => {
+              if (box.getAttribute("data-apartment-id") === apartmentId) {
+                box.classList.add("active");
+                // Scroll apartment into view if needed
+                const boxRect = box.getBoundingClientRect();
+                const isInView =
+                  boxRect.top >= 0 &&
+                  boxRect.left >= 0 &&
+                  boxRect.bottom <= window.innerHeight &&
+                  boxRect.right <= window.innerWidth;
+
+                if (!isInView) {
+                  box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                }
+              }
+            });
+          }
+
+          // Apply the same gold fill effect as when hovering over apartment boxes
+          const polygons = svgGroup.querySelectorAll("polygon");
+          polygons.forEach((polygon) => {
+            // Store original style to restore later
+            polygon.dataset.originalStyle = polygon.getAttribute("style") || "";
+
+            // Override the style attribute with gold fill - keeping other properties
+            const currentStyle = polygon.getAttribute("style") || "";
+            const newStyle =
+              currentStyle.replace(/fill:[^;]+;/, "") +
+              "fill: #c9a654 !important;";
+            polygon.setAttribute("style", newStyle);
+          });
+
+          console.log(
+            `Applied gold fill to SVG group ${groupId} on mouseenter (${polygons.length} polygons)`,
+          );
+        });
+
+        svgGroup.addEventListener("mouseleave", () => {
+          const groupId = svgGroup.id;
+          let apartmentId = null;
+
+          // Find the corresponding apartment ID
+          for (const [aptId, svgId] of Object.entries(apartmentMap)) {
+            if (svgId === groupId) {
+              apartmentId = aptId;
+              break;
+            }
+          }
+
+          if (apartmentId) {
+            // Reset the highlight on the apartment box
+            apartmentBoxes.forEach((box) => {
+              if (box.getAttribute("data-apartment-id") === apartmentId) {
+                box.classList.remove("active");
+              }
+            });
+          }
+
+          // Restore original styles to all polygons
+          const polygons = svgGroup.querySelectorAll("polygon");
+          polygons.forEach((polygon) => {
+            // Restore the original style
+            if (polygon.dataset.originalStyle) {
+              polygon.setAttribute("style", polygon.dataset.originalStyle);
+              delete polygon.dataset.originalStyle;
+            }
+          });
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  .property-listing {
+    display: flex;
+    background-color: white;
+    border-radius: 0;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    overflow: visible;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid rgba(201, 166, 84, 0.1);
+  }
+
+  .property-info-column {
+    flex: 2;
+    padding: 2.5rem;
+    max-width: 70%;
+  }
+
+  .building-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(201, 166, 84, 0.1);
+  }
+
+  .building-svg-column {
+    flex: 1;
+    background-color: white; /* Changed from var(--off-white) to white */
+    height: calc(100vh - 100px);
+    min-height: 550px;
+    max-height: 700px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+  }
+
+  .building-svg-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem;
+  }
+
+  .building-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.05));
+  }
+
+  .building-title {
+    font-size: 2.2rem;
+    color: var(--text-dark);
+    margin-bottom: 0.7rem;
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+  }
+
+  .building-address {
+    color: var(--text-light);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .building-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .building-tab {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 1px solid rgba(201, 166, 84, 0.2);
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+
+  .building-tab.active {
+    background-color: var(--gold);
+    color: white;
+    border-color: var(--gold);
+  }
+
+  .building-tab:hover:not(.active) {
+    border-color: var(--gold);
+    background-color: rgba(201, 166, 84, 0.05);
+  }
+
+  .apartments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .apartment-box {
+    padding: 1.5rem;
+    border-radius: 0;
+    border: 1px solid rgba(201, 166, 84, 0.1);
+    transition: all 0.4s ease;
+    background-color: white;
+    position: relative;
+  }
+
+  .apartment-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background-color: var(--gold);
+    transition: height 0.4s ease;
+  }
+
+  .apartment-box.active {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+    border-color: rgba(201, 166, 84, 0.3);
+  }
+
+  .apartment-box.active::before {
+    height: 100%;
+  }
+
+  .apartment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .apartment-title {
+    font-size: 1.3rem;
+    margin: 0;
+    color: var(--text-dark);
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+  }
+
+  .apartment-status {
+    padding: 5px 12px;
+    border-radius: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .apartment-status[data-status="Verfügbar"] {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+  }
+
+  .apartment-status[data-status="Reserviert"] {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+    border: 1px solid rgba(255, 152, 0, 0.2);
+  }
+
+  .apartment-status[data-status="Verkauft"] {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.2);
+  }
+
+  .apartment-price {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 0.7rem;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .apartment-details-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .apartment-specs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .spec {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+
+  .spec-icon {
+    color: var(--gold);
+  }
+
+  .spec .value {
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+
+  .apartment-address-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(201, 166, 84, 0.1);
+  }
+
+  .apartment-address {
+    color: var(--text-light);
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+
+  .view-details {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .view-details:hover {
+    color: var(--gold-dark);
+  }
+
+  .view-details:hover .arrow-icon {
+    transform: translateX(4px);
+  }
+
+  .arrow-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .apartment-svg {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .property-listing {
+      flex-direction: column;
+    }
+
+    .property-info-column {
+      max-width: 100%;
+      order: 2;
+      padding: 1.5rem;
+    }
+
+    .building-svg-column {
+      order: 1;
+      position: static;
+      min-height: 300px;
+      max-height: 400px;
+      height: auto;
+      border-left: none;
+      border-bottom: 1px solid rgba(201, 166, 84, 0.1);
+    }
+
+    .building-svg-container {
+      position: static;
+      padding: 1rem;
+    }
+
+    .building-tabs {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .apartments-list {
+      grid-template-columns: 1fr;
+    }
+
+    .apartment-specs {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .apartment-details-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

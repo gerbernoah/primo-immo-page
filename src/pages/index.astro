@@ -1,0 +1,382 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSection from "../components/FeatureSection.astro";
+import PropertyListing from "../components/PropertyListing.astro";
+import LocationSection from "../components/LocationSection.astro";
+
+// Sample features data
+const features = [
+	{
+		title: "Exquisite Qualität",
+		description:
+			"Entdecken Sie perfekt durchdachte Grundrisse, exklusive Materialien und eine attraktive Wertbeständigkeit.",
+		icon: "fas fa-award",
+	},
+	{
+		title: "Zeitgemäßes Design",
+		description:
+			"Erleben Sie stilvolles Wohnen in eleganter Architektur mit erstklassigen Materialien und modernster Technik.",
+		icon: "fas fa-home",
+	},
+	{
+		title: "Großzügige Raumkonzepte",
+		description:
+			"Genießen Sie außergewöhnlichen Wohnkomfort: Unsere exklusiven Wohnungen bieten großzügige Flächen und hochwertige Ausstattung.",
+		icon: "fas fa-expand",
+	},
+];
+
+// Apartments organized by building
+const apartments = [
+	{
+		id: "UG",
+		title: "Wohnung UG",
+		price: "CHF 1 850'000",
+		size: 95,
+		rooms: 4,
+		floor: "1. OG",
+		address: "Bielstrasse 50, Lengnau",
+		status: "Verfügbar",
+		building: "50",
+		svgId: "UG",
+	},
+	// Bielstrasse 50 apartments (Left building)
+	{
+		id: "apt1",
+		title: "Wohnung 1",
+		price: "CHF 850'000",
+		size: 95,
+		rooms: 4,
+		floor: "1. OG",
+		address: "Bielstrasse 50, Lengnau",
+		status: "Verfügbar",
+		building: "50",
+		svgId: "11",
+	},
+	{
+		id: "apt3",
+		title: "Wohnung 3",
+		price: "CHF 750'000",
+		size: 85,
+		rooms: 3.5,
+		floor: "1. OG",
+		address: "Bielstrasse 50, Lengnau",
+		status: "Verfügbar",
+		building: "50",
+		svgId: "12",
+	},
+	{
+		id: "apt5",
+		title: "Wohnung 5",
+		price: "CHF 780'000",
+		size: 90,
+		rooms: 3.5,
+		floor: "3. OG",
+		address: "Bielstrasse 50, Lengnau",
+		status: "Verkauft",
+		building: "50",
+		svgId: "13",
+	},
+	{
+		id: "apt7",
+		title: "Wohnung 7",
+		price: "CHF 830'000",
+		size: 92,
+		rooms: 4,
+		floor: "3. OG",
+		address: "Bielstrasse 50, Lengnau",
+		status: "Verfügbar",
+		building: "50",
+		svgId: "14",
+	},
+	{
+		id: "apt9",
+		title: "Wohnung 9",
+		price: "CHF 1 595'000",
+		size: 88,
+		rooms: 3.5,
+		floor: "4. OG",
+		address: "Bielstrasse 50, Lengnau",
+		status: "Reserviert",
+		building: "50",
+		svgId: "15",
+	},
+
+	// Bielstrasse 50a apartments (Right building)
+	{
+		id: "apt2",
+		title: "Wohnung 2",
+		price: "CHF 900'000",
+		size: 120,
+		rooms: 5,
+		floor: "2. OG",
+		address: "Bielstrasse 50a, Lengnau",
+		status: "Reserviert",
+		building: "50a",
+		svgId: "21",
+	},
+	{
+		id: "apt4",
+		title: "Wohnung 4",
+		price: "CHF 920'000",
+		size: 100,
+		rooms: 4.5,
+		floor: "2. OG",
+		address: "Bielstrasse 50a, Lengnau",
+		status: "Verfügbar",
+		building: "50a",
+		svgId: "22",
+	},
+	{
+		id: "apt6",
+		title: "Wohnung 6",
+		price: "CHF 890'000",
+		size: 105,
+		rooms: 4,
+		floor: "3. OG",
+		address: "Bielstrasse 50a, Lengnau",
+		status: "Reserviert",
+		building: "50a",
+		svgId: "23",
+	},
+	{
+		id: "apt8",
+		title: "Wohnung 8",
+		price: "CHF 970'000",
+		size: 110,
+		rooms: 4.5,
+		floor: "4. OG",
+		address: "Bielstrasse 50a, Lengnau",
+		status: "Verfügbar",
+		building: "50a",
+		svgId: "24",
+	},
+	{
+		id: "apt10",
+		title: "Wohnung 10",
+		price: "CHF 1'800'000",
+		size: 115,
+		rooms: 4.5,
+		floor: "4. OG",
+		address: "Bielstrasse 50a, Lengnau",
+		status: "Verfügbar",
+		building: "50a",
+		svgId: "25",
+	},
+];
+---
+
+<MainLayout title="Au Soleil - Exklusive Eigentumswohnungen in Lengnau">
+	<Hero />
+
+	<section class="introduction">
+		<div class="container">
+			<div class="intro-content">
+				<p class="intro-text">
+					Willkommen in Ihrem neuen Zuhause in Lengnau: In dieser exklusiven
+					Wohnüberbauung erwarten Sie 10 luxuriöse Eigentumswohnungen, die
+					höchsten Ansprüchen an Qualität und Design gerecht werden. Die
+					großzügig konzipierten Wohnungen vereinen zeitlose Eleganz mit
+					erstklassigen Materialien und überzeugen durch ein außergewöhnliches
+					Preis-Leistungs-Verhältnis.
+				</p>
+				<p class="intro-text">
+					Genießen Sie die privilegierte Lage im Grünen – zentral und dennoch
+					ruhig – und lassen Sie sich vom besonderen Wohnambiente und der
+					anspruchsvollen Architektur inspirieren.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<FeatureSection
+		title="Exklusive Qualität und zeitloses Design – Wohnraum für höchste Ansprüche"
+		features={features}
+	/>
+
+	<section class="properties-preview">
+		<div class="container">
+			<h2>Entdecken Sie unsere exklusiven Wohnungen</h2>
+			<p class="hover-instruction">
+				Bewegen Sie den Mauszeiger über eine Wohnung, um sie im Gebäudeplan
+				hervorzuheben
+			</p>
+
+			<div class="property-listing-container active">
+				<PropertyListing
+					apartments={apartments}
+					buildingTitle="Luxuriöse Wohnüberbauung"
+					buildingAddress="Bielstrasse 50/50a, Lengnau"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<LocationSection
+		title="Privilegierte Lage in Lengnau"
+		description="Genießen Sie die perfekte Balance zwischen urbaner Nähe und natürlicher Umgebung. Lengnau bietet exquisites Wohnen mit hervorragender Anbindung und vielfältigen Freizeitmöglichkeiten. Die ideale Lage für anspruchsvolle Bewohner, die Wert auf Lebensqualität und Exklusivität legen."
+	/>
+</MainLayout>
+
+<style>
+	.introduction {
+		padding: 6rem 2rem;
+		background-color: white;
+		position: relative;
+	}
+
+	.introduction::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 100px;
+		height: 1px;
+		background-color: rgba(201, 166, 84, 0.3);
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.intro-content {
+		position: relative;
+		padding: 0 2rem;
+	}
+
+	.intro-content::before {
+		content: '"';
+		position: absolute;
+		top: -2rem;
+		left: 0;
+		font-size: 8rem;
+		color: rgba(201, 166, 84, 0.1);
+		font-family: "Playfair Display", serif;
+		line-height: 1;
+	}
+
+	.intro-text {
+		font-size: 1.2rem;
+		line-height: 1.9;
+		color: var(--text-light);
+		max-width: 900px;
+		margin: 0 auto 1.5rem;
+		text-align: center;
+		font-weight: 300;
+		letter-spacing: 0.01em;
+	}
+
+	.properties-preview {
+		padding: 7rem 2rem;
+		background-color: var(--off-white);
+		position: relative;
+	}
+
+	.properties-preview::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: radial-gradient(
+			rgba(201, 166, 84, 0.05) 1px,
+			transparent 1px
+		);
+		background-size: 20px 20px;
+		z-index: 1;
+	}
+
+	.properties-preview .container {
+		position: relative;
+		z-index: 2;
+	}
+
+	.properties-preview h2 {
+		text-align: center;
+		font-size: 2.5rem;
+		color: var(--text-dark);
+		margin-bottom: 2rem;
+		position: relative;
+		font-family: "Playfair Display", serif;
+		font-weight: 600;
+		padding-bottom: 1.5rem;
+	}
+
+	.properties-preview h2:after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 80px;
+		height: 2px;
+		background-color: var(--gold);
+	}
+
+	.hover-instruction {
+		text-align: center;
+		color: var(--text-light);
+		margin-bottom: 3.5rem;
+		font-size: 0.95rem;
+		font-weight: 300;
+		letter-spacing: 0.01em;
+	}
+
+	.property-listing-container {
+		margin-bottom: 3rem;
+		width: 100%;
+		overflow: visible;
+	}
+
+	.property-listing-container.active {
+		display: block;
+	}
+
+	.view-all-container {
+		text-align: center;
+		margin-top: 3rem;
+	}
+
+	.btn-view-all {
+		display: inline-block;
+		padding: 1rem 2.5rem;
+		background-color: transparent;
+		color: var(--text-dark);
+		text-decoration: none;
+		border: 1px solid var(--gold);
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-size: 0.85rem;
+		transition: all 0.4s ease;
+		position: relative;
+	}
+
+	.btn-view-all:hover {
+		background-color: var(--gold);
+		color: white;
+	}
+
+	@media (max-width: 768px) {
+		.introduction,
+		.properties-preview {
+			padding: 4rem 1.5rem;
+		}
+
+		.intro-content {
+			padding: 0;
+		}
+
+		.intro-content::before {
+			display: none;
+		}
+
+		.properties-preview h2 {
+			font-size: 2rem;
+		}
+	}
+</style>
