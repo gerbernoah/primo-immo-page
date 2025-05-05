@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="location-section">
+<section class="location-section" id="location">
   <div class="container">
     <div class="location-info">
       <h2>{title}</h2>
@@ -73,17 +73,6 @@ const {
     padding: 7rem 2rem;
     background-color: var(--off-white);
     position: relative;
-  }
-
-  .location-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40%;
-    height: 100%;
-    background-color: white;
-    z-index: 1;
   }
 
   .container {
