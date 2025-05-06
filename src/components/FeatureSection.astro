@@ -13,36 +13,44 @@ interface Props {
 const { title, features } = Astro.props;
 ---
 
-<section class="relative py-32 px-4 luxury-texture" id="features">
+<section
+  class="relative py-20 sm:py-28 md:py-36 px-5 sm:px-8 luxury-texture"
+  id="features"
+>
   <div
     class="absolute inset-0 bg-[radial-gradient(rgba(201,166,84,0.05)_1px,transparent_1px)] bg-[length:20px_20px] z-0"
   >
   </div>
   <div class="max-w-7xl mx-auto relative z-10">
-    <div class="text-center mb-6">
+    <div class="text-center mb-5 sm:mb-6">
       <span class="uppercase text-gold text-xs tracking-widest font-medium"
         >Exzellente Ausstattung</span
       >
     </div>
     <h2
-      class="text-center text-4xl md:text-5xl text-gray-800 mb-6 relative font-playfair font-semibold"
+      class="text-center text-3xl sm:text-4xl md:text-5xl text-gray-800 mb-5 sm:mb-7 relative font-playfair font-semibold"
     >
       {title}
     </h2>
-    <div class="w-20 h-0.5 bg-gold mx-auto mb-20 opacity-70"></div>
+    <div
+      class="w-16 sm:w-20 h-0.5 bg-gold mx-auto mb-14 sm:mb-18 md:mb-24 opacity-70"
+    >
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12"
+    >
       {
         features.map((feature) => (
-          <div class="bg-white p-12 transition-all duration-300 text-center relative overflow-hidden hover:-translate-y-2 group shadow-md hover:shadow-lg rounded-sm">
+          <div class="bg-white p-7 sm:p-10 md:p-12 transition-all duration-300 text-center relative overflow-hidden hover:-translate-y-2 group shadow-md hover:shadow-lg rounded-sm">
             <div class="absolute -top-10 -right-10 w-20 h-20 bg-gold/5 rounded-full" />
-            <div class="text-5xl text-gold mb-8 transition-all duration-300 group-hover:scale-110 group-hover:text-gold group-hover:rotate-3">
+            <div class="text-4xl sm:text-5xl text-gold mb-7 sm:mb-8 transition-all duration-300 group-hover:scale-110 group-hover:text-gold group-hover:rotate-3">
               <i class={feature.icon} />
             </div>
-            <h3 class="text-2xl mb-4 text-gray-800 font-playfair font-semibold relative pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-px after:bg-gold/30 group-hover:text-gold transition-colors">
+            <h3 class="text-xl sm:text-2xl mb-4 sm:mb-5 text-gray-800 font-playfair font-semibold relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-px after:bg-gold/30 group-hover:text-gold transition-colors">
               {feature.title}
             </h3>
-            <p class="text-gray-600 leading-relaxed font-light text-base">
+            <p class="text-gray-600 leading-relaxed font-light text-sm sm:text-base mt-3">
               {feature.description}
             </p>
             <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />

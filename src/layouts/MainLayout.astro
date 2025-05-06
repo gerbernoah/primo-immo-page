@@ -28,29 +28,57 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const mobileMenuClose = document.getElementById("mobile-menu-close");
+        const mobileMenuLinks = document.querySelectorAll(".mobile-menu-link");
+
+        if (mobileMenu) {
+          if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener("click", function () {
+              mobileMenu.style.transform = "translateX(0)";
+            });
+          }
+
+          if (mobileMenuClose) {
+            mobileMenuClose.addEventListener("click", function () {
+              mobileMenu.style.transform = "translateX(100%)";
+            });
+          }
+
+          mobileMenuLinks.forEach((link) => {
+            link.addEventListener("click", function () {
+              mobileMenu.style.transform = "translateX(100%)";
+            });
+          });
+        }
+      });
+    </script>
   </head>
   <body class="font-sans text-gray-800 bg-gray-50">
     <header class="sticky top-0 z-40 bg-[#2c2c2c] shadow-md">
       <nav
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center relative"
+        class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-4 sm:py-5 md:py-6 flex justify-between items-center relative"
       >
         <div class="logo flex items-center">
           <a href="/" class="no-underline flex items-center group">
             <div
-              class="w-8 h-8 border border-gold/40 rounded-sm flex items-center justify-center text-gold group-hover:border-gold group-hover:bg-gold/10 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110 mr-1"
+              class="w-7 h-7 sm:w-8 sm:h-8 border border-gold/40 rounded-sm flex items-center justify-center text-gold group-hover:border-gold group-hover:bg-gold/10 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110 mr-1"
             >
               <i
-                class="fas fa-mountain text-sm group-hover:text-gold group-hover:rotate-315 transition-all duration-300"
+                class="fas fa-mountain text-xs sm:text-sm group-hover:text-gold group-hover:rotate-315 transition-all duration-300"
               ></i>
             </div>
             <h1
-              class="text-2xl font-playfair font-bold text-gold tracking-wider"
+              class="text-xl sm:text-2xl font-playfair font-bold text-gold tracking-wider"
             >
               lpensicht
             </h1>
           </a>
         </div>
-        <div class="hidden md:flex space-x-10">
+        <div class="hidden md:flex space-x-8 lg:space-x-12">
           <a
             href="#hero"
             class="uppercase text-sm font-medium tracking-wider text-white hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:bg-gold after:h-0.5 after:w-0 hover:after:w-full after:transition-all after:duration-300"
@@ -73,9 +101,58 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
           >
         </div>
         <div class="md:hidden">
-          <!-- Mobile menu button could be added here -->
+          <!-- Mobile menu button -->
+          <button
+            id="mobile-menu-toggle"
+            class="text-white hover:text-gold focus:outline-none p-2"
+            aria-label="Toggle menu"
+          >
+            <i class="fas fa-bars text-xl"></i>
+          </button>
         </div>
       </nav>
+
+      <!-- Mobile menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden fixed inset-0 bg-[#2c2c2c]/95 z-50 transform translate-x-full transition-transform duration-300 ease-in-out"
+      >
+        <div class="h-full flex flex-col p-5 sm:p-8">
+          <div class="flex justify-end">
+            <button
+              id="mobile-menu-close"
+              class="text-white hover:text-gold focus:outline-none p-2"
+              aria-label="Close menu"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center flex-grow gap-10"
+          >
+            <a
+              href="#hero"
+              class="uppercase text-lg font-medium tracking-wider text-white hover:text-gold relative mobile-menu-link"
+              >Startseite</a
+            >
+            <a
+              href="#features"
+              class="uppercase text-lg font-medium tracking-wider text-white hover:text-gold relative mobile-menu-link"
+              >Ausstattung</a
+            >
+            <a
+              href="#apartments"
+              class="uppercase text-lg font-medium tracking-wider text-white hover:text-gold relative mobile-menu-link"
+              >Wohnungen</a
+            >
+            <a
+              href="#location"
+              class="uppercase text-lg font-medium tracking-wider text-white hover:text-gold relative mobile-menu-link"
+              >Lage</a
+            >
+          </div>
+        </div>
+      </div>
     </header>
 
     <main class="min-h-[70vh]">
@@ -83,7 +160,7 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
     </main>
 
     <footer
-      class="bg-[#2c2c2c] text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      class="bg-[#2c2c2c] text-white py-12 sm:py-16 md:py-24 px-4 sm:px-8 md:px-12 relative overflow-hidden"
     >
       <div
         class="absolute inset-0 bg-[radial-gradient(rgba(201,166,84,0.05)_1px,transparent_1px)] bg-[length:20px_20px] z-0"
@@ -91,15 +168,15 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
       </div>
 
       <div
-        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12 relative z-10"
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8 sm:gap-10 md:gap-12 relative z-10"
       >
-        <div class="mb-8">
+        <div class="mb-6 md:mb-0">
           <h3
-            class="text-xl font-playfair mb-4 text-gold relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-1/2 after:h-px after:bg-gold/30"
+            class="text-xl font-playfair mb-4 text-gold relative inline-block pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-1/2 after:h-px after:bg-gold/30"
           >
             Alpensicht
           </h3>
-          <div class="flex gap-4 mt-2">
+          <div class="flex gap-4 mt-4">
             <a
               href="mailto:noah@gerberservices.com"
               target="_blank"
@@ -120,32 +197,34 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
             </a>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row gap-8">
-          <div>
+        <div class="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-10">
+          <div class="w-full">
             <h4
-              class="text-lg font-medium mb-4 text-gold relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-1/2 after:h-px after:bg-gold/30"
+              class="text-lg font-medium mb-4 text-gold relative inline-block pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-1/2 after:h-px after:bg-gold/30"
             >
               Entdecken
             </h4>
-            <div class="flex flex-wrap gap-2 mt-2">
+            <div
+              class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3 mt-3"
+            >
               <a
                 href="#hero"
-                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                class="px-3 sm:px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-xs sm:text-sm rounded-sm text-center sm:text-left"
                 >#Startseite</a
               >
               <a
                 href="#features"
-                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                class="px-3 sm:px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-xs sm:text-sm rounded-sm text-center sm:text-left"
                 >#Ausstattung</a
               >
               <a
                 href="#apartments"
-                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                class="px-3 sm:px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-xs sm:text-sm rounded-sm text-center sm:text-left"
                 >#Wohnungen</a
               >
               <a
                 href="#location"
-                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                class="px-3 sm:px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-xs sm:text-sm rounded-sm text-center sm:text-left"
                 >#Lage</a
               >
             </div>
@@ -153,13 +232,16 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
         </div>
       </div>
 
-      <div class="gold-divider my-12 opacity-20"></div>
+      <div
+        class="gold-divider my-10 sm:my-12 md:my-16 opacity-20 max-w-[90%] mx-auto"
+      >
+      </div>
 
       <div class="max-w-7xl mx-auto text-center">
-        <p class="text-sm font-light text-gray-400">
+        <p class="text-xs sm:text-sm font-light text-gray-400">
           &copy; 2025 Alpensicht. Alle Rechte vorbehalten.
         </p>
-        <p class="text-sm text-gold mt-4 font-light">
+        <p class="text-xs sm:text-sm text-gold mt-3 sm:mt-4 font-light">
           Made by <a
             href="https://gerberservices.com"
             target="_blank"

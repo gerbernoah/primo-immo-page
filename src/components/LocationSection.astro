@@ -12,92 +12,101 @@ const {
 } = Astro.props;
 ---
 
-<section class="py-32 px-4 bg-off-white relative" id="location">
+<section
+  class="py-20 sm:py-28 md:py-36 px-5 sm:px-8 md:px-12 bg-off-white relative"
+  id="location"
+>
   <div class="absolute inset-0 bg-gold-gradient opacity-30 z-0"></div>
   <div
-    class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10"
+    class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14 lg:gap-20 items-center relative z-10"
   >
     <div class="lg:pr-8">
-      <div class="mb-4">
+      <div class="mb-3 sm:mb-4">
         <span class="uppercase text-gold text-xs tracking-widest font-medium"
           >Premium Standort</span
         >
       </div>
       <h2
-        class="text-4xl md:text-5xl text-gray-800 mb-6 relative font-playfair font-semibold"
+        class="text-3xl sm:text-4xl md:text-5xl text-gray-800 mb-5 sm:mb-7 relative font-playfair font-semibold"
       >
         {title}
       </h2>
-      <div class="w-20 h-0.5 bg-gold mb-10 opacity-70"></div>
+      <div class="w-16 sm:w-20 h-0.5 bg-gold mb-8 sm:mb-12 opacity-70"></div>
       <div
-        class="text-gray-600 leading-relaxed font-light text-lg mb-14"
+        class="text-gray-600 leading-relaxed font-light text-base sm:text-lg mb-10 sm:mb-16"
         set:html={description}
       />
-      <div class="flex flex-col gap-8">
-        <div class="flex items-start gap-5 group">
+      <div class="flex flex-col gap-7 sm:gap-10">
+        <div class="flex items-start gap-4 sm:gap-5 group">
           <div
-            class="bg-gold/10 text-gold w-14 h-14 rounded-sm flex items-center justify-center text-xl flex-shrink-0 transition-all duration-300 shadow-sm group-hover:bg-gold group-hover:text-white transform group-hover:-translate-y-1"
+            class="bg-gold/10 text-gold w-12 h-12 sm:w-14 sm:h-14 rounded-sm flex items-center justify-center text-lg sm:text-xl flex-shrink-0 transition-all duration-300 shadow-sm group-hover:bg-gold group-hover:text-white transform group-hover:-translate-y-1"
           >
             <i class="fas fa-car"></i>
           </div>
           <div>
             <h4
-              class="text-xl text-gray-800 mb-3 font-playfair font-semibold transition-colors group-hover:text-gold"
+              class="text-lg sm:text-xl text-gray-800 mb-3 sm:mb-4 font-playfair font-semibold transition-colors group-hover:text-gold"
             >
               Verkehrsanbindung
             </h4>
-            <p class="text-gray-600 text-base leading-relaxed font-light">
+            <p
+              class="text-gray-600 text-sm sm:text-base leading-relaxed font-light"
+            >
               Exzellente Anbindung an öffentliche Verkehrsmittel und Autobahn
             </p>
           </div>
         </div>
-        <div class="flex items-start gap-5 group">
+        <div class="flex items-start gap-4 sm:gap-5 group">
           <div
-            class="bg-gold/10 text-gold w-14 h-14 rounded-sm flex items-center justify-center text-xl flex-shrink-0 transition-all duration-300 shadow-sm group-hover:bg-gold group-hover:text-white transform group-hover:-translate-y-1"
+            class="bg-gold/10 text-gold w-12 h-12 sm:w-14 sm:h-14 rounded-sm flex items-center justify-center text-lg sm:text-xl flex-shrink-0 transition-all duration-300 shadow-sm group-hover:bg-gold group-hover:text-white transform group-hover:-translate-y-1"
           >
             <i class="fas fa-shopping-bag"></i>
           </div>
           <div>
             <h4
-              class="text-xl text-gray-800 mb-3 font-playfair font-semibold transition-colors group-hover:text-gold"
+              class="text-lg sm:text-xl text-gray-800 mb-3 sm:mb-4 font-playfair font-semibold transition-colors group-hover:text-gold"
             >
               Einkauf und Versorgung
             </h4>
-            <p class="text-gray-600 text-base leading-relaxed font-light">
+            <p
+              class="text-gray-600 text-sm sm:text-base leading-relaxed font-light"
+            >
               Alle Geschäfte des täglichen Bedarfs in unmittelbarer Nähe
             </p>
           </div>
         </div>
-        <div class="flex items-start gap-5 group">
+        <div class="flex items-start gap-4 sm:gap-5 group">
           <div
-            class="bg-gold/10 text-gold w-14 h-14 rounded-sm flex items-center justify-center text-xl flex-shrink-0 transition-all duration-300 shadow-sm group-hover:bg-gold group-hover:text-white transform group-hover:-translate-y-1"
+            class="bg-gold/10 text-gold w-12 h-12 sm:w-14 sm:h-14 rounded-sm flex items-center justify-center text-lg sm:text-xl flex-shrink-0 transition-all duration-300 shadow-sm group-hover:bg-gold group-hover:text-white transform group-hover:-translate-y-1"
           >
             <i class="fas fa-tree"></i>
           </div>
           <div>
             <h4
-              class="text-xl text-gray-800 mb-3 font-playfair font-semibold group-hover:text-gold transition-colors"
+              class="text-lg sm:text-xl text-gray-800 mb-3 sm:mb-4 font-playfair font-semibold group-hover:text-gold transition-colors"
             >
               Naherholung
             </h4>
-            <p class="text-gray-600 text-base leading-relaxed font-light">
+            <p
+              class="text-gray-600 text-sm sm:text-base leading-relaxed font-light"
+            >
               Vielfältige Freizeit- und Erholungsmöglichkeiten in der Umgebung
             </p>
           </div>
         </div>
       </div>
     </div>
-    <div class="relative">
-      <div class="p-2 border border-gold/20 shadow-lg bg-white">
+    <div class="relative mt-10 lg:mt-0">
+      <div class="p-2 sm:p-3 border border-gold/20 shadow-lg bg-white">
         <iframe
           src={mapEmbedUrl}
           width="100%"
-          height="500"
+          height="350"
           style="border:0;"
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          class="filter grayscale-[30%]"
+          class="filter grayscale-[30%] sm:h-[400px] md:h-[500px]"
         >
         </iframe>
       </div>
