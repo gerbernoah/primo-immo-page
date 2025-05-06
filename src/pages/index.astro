@@ -167,46 +167,36 @@ const apartments = [
 ];
 ---
 
-<MainLayout title="Au Soleil - Exklusive Eigentumswohnungen in Lengnau">
+<MainLayout title="Alpensicht - Exklusive Eigentumswohnungen in Lengnau">
 	<Hero />
-
-	<section class="introduction">
-		<div class="container">
-			<div class="intro-content">
-				<p class="intro-text">
-					Willkommen in Ihrem neuen Zuhause in Lengnau: In dieser exklusiven
-					Wohnüberbauung erwarten Sie 10 luxuriöse Eigentumswohnungen, die
-					höchsten Ansprüchen an Qualität und Design gerecht werden. Die
-					großzügig konzipierten Wohnungen vereinen zeitlose Eleganz mit
-					erstklassigen Materialien und überzeugen durch ein außergewöhnliches
-					Preis-Leistungs-Verhältnis.
-				</p>
-				<p class="intro-text">
-					Genießen Sie die privilegierte Lage im Grünen – zentral und dennoch
-					ruhig – und lassen Sie sich vom besonderen Wohnambiente und der
-					anspruchsvollen Architektur inspirieren.
-				</p>
-			</div>
-		</div>
-	</section>
 
 	<FeatureSection
 		title="Exklusive Qualität und zeitloses Design – Wohnraum für höchste Ansprüche"
 		features={features}
 	/>
 
-	<section class="properties-preview">
-		<div class="container">
-			<h2>Entdecken Sie unsere exklusiven Wohnungen</h2>
-			<p class="hover-instruction">
+	<section class="py-28 px-4 bg-off-white relative">
+		<div
+			class="absolute inset-0 bg-[radial-gradient(rgba(201,166,84,0.05)_1px,transparent_1px)] bg-[length:20px_20px] z-0"
+		>
+		</div>
+		<div class="max-w-7xl mx-auto relative z-10">
+			<h2
+				class="text-center text-4xl text-gray-800 mb-8 relative font-playfair font-semibold pb-6 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-0.5 after:bg-gold"
+			>
+				Entdecken Sie unsere 12 exklusiven Wohnungen
+			</h2>
+			<p
+				class="text-center text-gray-600 mb-14 text-base font-light tracking-wide"
+			>
 				Bewegen Sie den Mauszeiger über eine Wohnung, um sie im Gebäudeplan
 				hervorzuheben
 			</p>
 
-			<div class="property-listing-container active">
+			<div class="mb-12 w-full overflow-visible block">
 				<PropertyListing
 					apartments={apartments}
-					buildingTitle="Luxuriöse Wohnüberbauung"
+					buildingTitle="Alpensicht - Luxuriöse Wohnüberbauung"
 					buildingAddress="Bielstrasse 50/50a, Lengnau"
 				/>
 			</div>
@@ -218,165 +208,3 @@ const apartments = [
 		description="Genießen Sie die perfekte Balance zwischen urbaner Nähe und natürlicher Umgebung. Lengnau bietet exquisites Wohnen mit hervorragender Anbindung und vielfältigen Freizeitmöglichkeiten. Die ideale Lage für anspruchsvolle Bewohner, die Wert auf Lebensqualität und Exklusivität legen."
 	/>
 </MainLayout>
-
-<style>
-	.introduction {
-		padding: 6rem 2rem;
-		background-color: white;
-		position: relative;
-	}
-
-	.introduction::after {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 100px;
-		height: 1px;
-		background-color: rgba(201, 166, 84, 0.3);
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	.intro-content {
-		position: relative;
-		padding: 0 2rem;
-	}
-
-	.intro-content::before {
-		content: '"';
-		position: absolute;
-		top: -2rem;
-		left: 0;
-		font-size: 8rem;
-		color: rgba(201, 166, 84, 0.1);
-		font-family: "Playfair Display", serif;
-		line-height: 1;
-	}
-
-	.intro-text {
-		font-size: 1.2rem;
-		line-height: 1.9;
-		color: var(--text-light);
-		max-width: 900px;
-		margin: 0 auto 1.5rem;
-		text-align: center;
-		font-weight: 300;
-		letter-spacing: 0.01em;
-	}
-
-	.properties-preview {
-		padding: 7rem 2rem;
-		background-color: var(--off-white);
-		position: relative;
-	}
-
-	.properties-preview::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-image: radial-gradient(
-			rgba(201, 166, 84, 0.05) 1px,
-			transparent 1px
-		);
-		background-size: 20px 20px;
-		z-index: 1;
-	}
-
-	.properties-preview .container {
-		position: relative;
-		z-index: 2;
-	}
-
-	.properties-preview h2 {
-		text-align: center;
-		font-size: 2.5rem;
-		color: var(--text-dark);
-		margin-bottom: 2rem;
-		position: relative;
-		font-family: "Playfair Display", serif;
-		font-weight: 600;
-		padding-bottom: 1.5rem;
-	}
-
-	.properties-preview h2:after {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 80px;
-		height: 2px;
-		background-color: var(--gold);
-	}
-
-	.hover-instruction {
-		text-align: center;
-		color: var(--text-light);
-		margin-bottom: 3.5rem;
-		font-size: 0.95rem;
-		font-weight: 300;
-		letter-spacing: 0.01em;
-	}
-
-	.property-listing-container {
-		margin-bottom: 3rem;
-		width: 100%;
-		overflow: visible;
-	}
-
-	.property-listing-container.active {
-		display: block;
-	}
-
-	.view-all-container {
-		text-align: center;
-		margin-top: 3rem;
-	}
-
-	.btn-view-all {
-		display: inline-block;
-		padding: 1rem 2.5rem;
-		background-color: transparent;
-		color: var(--text-dark);
-		text-decoration: none;
-		border: 1px solid var(--gold);
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		font-size: 0.85rem;
-		transition: all 0.4s ease;
-		position: relative;
-	}
-
-	.btn-view-all:hover {
-		background-color: var(--gold);
-		color: white;
-	}
-
-	@media (max-width: 768px) {
-		.introduction,
-		.properties-preview {
-			padding: 4rem 1.5rem;
-		}
-
-		.intro-content {
-			padding: 0;
-		}
-
-		.intro-content::before {
-			display: none;
-		}
-
-		.properties-preview h2 {
-			font-size: 2rem;
-		}
-	}
-</style>

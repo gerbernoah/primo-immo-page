@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+
 interface Props {
   title: string;
   description?: string;
@@ -9,11 +11,11 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang="de" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} - Au Soleil</title>
+    <title>{title} - Alpensicht</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,259 +29,145 @@ const { title, description = "Luxuriöse Eigentumswohnungen in Lengnau" } =
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
-  <body>
-    <header>
-      <nav>
-        <div class="logo">
-          <a href="/">
-            <h1>Au Soleil</h1>
+  <body class="font-sans text-gray-800 bg-gray-50">
+    <header class="sticky top-0 z-40 bg-[#2c2c2c] shadow-md">
+      <nav
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center relative"
+      >
+        <div class="logo flex items-center">
+          <a href="/" class="no-underline flex items-center group">
+            <div
+              class="w-8 h-8 border border-gold/40 rounded-sm flex items-center justify-center text-gold group-hover:border-gold group-hover:bg-gold/10 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110 mr-1"
+            >
+              <i
+                class="fas fa-mountain text-sm group-hover:text-gold group-hover:rotate-315 transition-all duration-300"
+              ></i>
+            </div>
+            <h1
+              class="text-2xl font-playfair font-bold text-gold tracking-wider"
+            >
+              lpensicht
+            </h1>
           </a>
         </div>
-        <div class="nav-links">
-          <a href="/">Startseite</a>
-          <a href="/wohnungen">Wohnungen</a>
-          <a href="/projekt">Projekt</a>
-          <a href="/kontakt">Kontakt</a>
+        <div class="hidden md:flex space-x-10">
+          <a
+            href="#hero"
+            class="uppercase text-sm font-medium tracking-wider text-white hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:bg-gold after:h-0.5 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+            >Startseite</a
+          >
+          <a
+            href="#features"
+            class="uppercase text-sm font-medium tracking-wider text-white hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:bg-gold after:h-0.5 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+            >Ausstattung</a
+          >
+          <a
+            href="#apartments"
+            class="uppercase text-sm font-medium tracking-wider text-white hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:bg-gold after:h-0.5 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+            >Wohnungen</a
+          >
+          <a
+            href="#location"
+            class="uppercase text-sm font-medium tracking-wider text-white hover:text-gold relative after:absolute after:bottom-0 after:left-0 after:bg-gold after:h-0.5 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+            >Lage</a
+          >
+        </div>
+        <div class="md:hidden">
+          <!-- Mobile menu button could be added here -->
         </div>
       </nav>
     </header>
 
-    <main>
+    <main class="min-h-[70vh]">
       <slot />
     </main>
 
-    <footer>
-      <div class="footer-content">
-        <div class="company-info">
-          <h3>BK Immobilien AG</h3>
-          <p>Keltenstrasse 5</p>
-          <p>2563 Ipsach</p>
-          <p><a href="tel:+41323313242">+41 32 331 32 42</a></p>
-          <p>
-            <a href="mailto:b.kradolfer@bkimmobilien.ch"
-              >b.kradolfer@bkimmobilien.ch</a
+    <footer
+      class="bg-[#2c2c2c] text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-[radial-gradient(rgba(201,166,84,0.05)_1px,transparent_1px)] bg-[length:20px_20px] z-0"
+      >
+      </div>
+
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12 relative z-10"
+      >
+        <div class="mb-8">
+          <h3
+            class="text-xl font-playfair mb-4 text-gold relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-1/2 after:h-px after:bg-gold/30"
+          >
+            Alpensicht
+          </h3>
+          <div class="flex gap-4 mt-2">
+            <a
+              href="mailto:noah@gerberservices.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-white hover:text-gold hover:border-gold hover:bg-gray-800/50 transition-all duration-300 hover:scale-110 cursor-pointer"
+              aria-label="Mail"
             >
-          </p>
+              <i class="fas fa-envelope text-sm"></i>
+            </a>
+            <a
+              href="https://instagram.com/wizdomblendz"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-white hover:text-gold hover:border-gold hover:bg-gray-800/50 transition-all duration-300 hover:scale-110 cursor-pointer"
+              aria-label="Instagram"
+            >
+              <i class="fab fa-instagram text-sm"></i>
+            </a>
+          </div>
         </div>
-        <div class="footer-links">
-          <a href="/kontakt">Kontakt</a>
-          <a href="/datenschutz">Datenschutz</a>
-          <a href="/impressum">Impressum</a>
+        <div class="flex flex-col md:flex-row gap-8">
+          <div>
+            <h4
+              class="text-lg font-medium mb-4 text-gold relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-1/2 after:h-px after:bg-gold/30"
+            >
+              Entdecken
+            </h4>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <a
+                href="#hero"
+                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                >#Startseite</a
+              >
+              <a
+                href="#features"
+                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                >#Ausstattung</a
+              >
+              <a
+                href="#apartments"
+                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                >#Wohnungen</a
+              >
+              <a
+                href="#location"
+                class="px-4 py-2 bg-gray-800/80 border border-gold/10 hover:border-gold hover:bg-gray-800 text-white transition-all duration-300 text-sm rounded-sm"
+                >#Lage</a
+              >
+            </div>
+          </div>
         </div>
       </div>
-      <div class="copyright">
-        <p>&copy; 2025 Au Soleil. Alle Rechte vorbehalten.</p>
+
+      <div class="gold-divider my-12 opacity-20"></div>
+
+      <div class="max-w-7xl mx-auto text-center">
+        <p class="text-sm font-light text-gray-400">
+          &copy; 2025 Alpensicht. Alle Rechte vorbehalten.
+        </p>
+        <p class="text-sm text-gold mt-4 font-light">
+          Made by <a
+            href="https://gerberservices.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-bold relative">Gerber Services</a
+          >
+        </p>
       </div>
     </footer>
   </body>
 </html>
-
-<style>
-  /* Luxury Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  :root {
-    --gold: #c9a654;
-    --gold-light: #d4b76b;
-    --gold-dark: #ab8c38;
-    --charcoal: #2c2c2c;
-    --off-white: #f8f8f8;
-    --light-gray: #e9e9e9;
-    --text-dark: #2c2c2c;
-    --text-light: #6e6e6e;
-  }
-
-  body {
-    font-family: "Montserrat", sans-serif;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: var(--off-white);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Playfair Display", serif;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-  }
-
-  /* Header and Navigation */
-  header {
-    padding: 1.5rem 2rem;
-    background-color: white;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .logo h1 {
-    font-size: 2rem;
-    color: var(--gold);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-  }
-
-  .logo a {
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    position: relative;
-    padding: 0.5rem 0;
-    transition: color 0.3s;
-  }
-
-  .nav-links a::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: var(--gold);
-    transition: width 0.3s ease;
-  }
-
-  .nav-links a:hover {
-    color: var(--gold);
-  }
-
-  .nav-links a:hover::after {
-    width: 100%;
-  }
-
-  /* Main Content */
-  main {
-    min-height: 70vh;
-  }
-
-  /* Footer */
-  footer {
-    background-color: var(--charcoal);
-    color: white;
-    padding: 4rem 2rem;
-  }
-
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 3rem;
-  }
-
-  .company-info h3 {
-    margin-bottom: 1.5rem;
-    color: var(--gold);
-    font-size: 1.5rem;
-  }
-
-  .company-info p {
-    margin-bottom: 0.7rem;
-    font-weight: 300;
-    letter-spacing: 0.02em;
-  }
-
-  .company-info a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .company-info a:hover {
-    color: var(--gold-light);
-  }
-
-  .footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .footer-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: 300;
-    letter-spacing: 0.02em;
-    transition: color 0.3s;
-    position: relative;
-    padding-bottom: 0.3rem;
-  }
-
-  .footer-links a::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 1px;
-    bottom: 0;
-    left: 0;
-    background-color: var(--gold);
-    transition: width 0.3s ease;
-  }
-
-  .footer-links a:hover {
-    color: var(--gold-light);
-  }
-
-  .footer-links a:hover::after {
-    width: 100%;
-  }
-
-  .copyright {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-    padding-top: 3rem;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    font-weight: 300;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    nav {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .nav-links {
-      flex-direction: column;
-      gap: 1.2rem;
-      width: 100%;
-      text-align: center;
-    }
-
-    .footer-content {
-      flex-direction: column;
-    }
-  }
-</style>

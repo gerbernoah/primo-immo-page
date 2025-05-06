@@ -6,7 +6,8 @@
     "vscode": {
       "extensions": [
         "biomejs.biome",
-        "yoavbls.pretty-ts-errors"
+        "yoavbls.pretty-ts-errors",
+        "bradlc.vscode-tailwindcss"
       ],
       "settings": {
         "editor.defaultFormatter": "biomejs.biome",
